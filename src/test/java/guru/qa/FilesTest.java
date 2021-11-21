@@ -17,13 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class FilesTest extends TestBase {
-
     @Test
     @Owner("Кочуров Д.Е.")
     @Feature("Работа с файлами")
     @DisplayName("Имя файла отображается после загрузки")
     void filenameShouldDisplayedAfterUploadActionFromClasspathTest() {
-        open(UPLOAD_PAGE);
+        open(UPLOAD_PAGE_FILE_UPLOAD);
         $(".featured-btn").click();
         $("input[id = 'file_0']").uploadFromClasspath(UPLOAD_FILE);
         $(".uploadfile").shouldHave(text(UPLOAD_FILE));
@@ -49,10 +48,11 @@ public class FilesTest extends TestBase {
     void pdfFileDownloadTest() throws IOException {
         open(DOWNLOAD_FILE_PDF);
         File pdf = $(".left").download();
-        PDF parsedPdf = new PDF(pdf);
-        Assertions.assertEquals(190, parsedPdf.numberOfPages);
+//        Проверка на кол-во страниц в pdf файле
+//        PDF parsedPdf = new PDF(pdf);
+//        Assertions.assertEquals(190, parsedPdf.numberOfPages);
 //        Проверка по тексту
-//        assertThat(new PDF(pdf)).containsExactText(PDF_RESULT);
+        assertThat(new PDF(pdf)).containsExactText(PDF_RESULT);
     }
 
     @Test
